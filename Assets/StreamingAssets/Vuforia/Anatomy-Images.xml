@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig>
+  <Tracking>
+    <ImageTarget name="VertebralColumn-Chap17" size="1.000000 1.090446" />
+    <ImageTarget name="Thyroid-Chap19" size="1.000000 2.150127" />
+    <ImageTarget name="Skull-Chap17" size="1.000000 0.629214" />
+    <ImageTarget name="Rightpelvicgirdle-Chap17" size="1.000000 1.285054" />
+    <ImageTarget name="Rightpectoralgirdlec-Chap19" size="1.000000 1.645796" />
+    <ImageTarget name="Ribcage-Chap17" size="1.000000 0.845685" />
+    <ImageTarget name="RenalCapsucle-Chap16" size="1.000000 1.022487" />
+    <ImageTarget name="Neuron-Chap18" size="1.000000 2.641936" />
+    <ImageTarget name="Nephron-Vasarecta-Chap16" size="1.000000 0.771310" />
+    <ImageTarget name="UrinarySystem-Chap16" size="1.000000 0.899358" />
+    <ImageTarget name="Circulation-Chap15" size="1.000000 0.646413" />
+    <ImageTarget name="Lungs-Chap14" size="1.000000 0.639576" />
+    <ImageTarget name="Brain-Chap18" size="1.000000 0.612526" />
+    <ImageTarget name="Adrenal-Chap19" size="1.000000 0.644868" />
+    <ImageTarget name="Kidney-Chap16" size="1.000000 0.860204" />
+    <ImageTarget name="Heart-Chap15" size="1.000000 0.697402" />
+  </Tracking>
+</QCARConfig>

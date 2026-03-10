@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "249083555834",
+    "project_id": "nueroar-3731c",
+    "storage_bucket": "nueroar-3731c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:249083555834:android:f04ef4a62b5a0bc9863e43",
+        "android_client_info": {
+          "package_name": "com.divinity.neuroar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "249083555834-deorrvasq6rpk09ih9hq9jhpdsr1l8a7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.divinity.neuroar",
+            "certificate_hash": "d2e65a82e17300e9d7e87b71764a18a72ce0db96"
+          }
+        },
+        {
+          "client_id": "249083555834-tvj64fauoc7g7m4o1e8r4aqu0demjbo8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-R3IVnN0wyzgKvmcjIezhHTDrPYv_pqI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "249083555834-tvj64fauoc7g7m4o1e8r4aqu0demjbo8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "249083555834-5ssd41t0na7ckf6j0fitlfbik58o6f89.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.divinity.neuroar"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
