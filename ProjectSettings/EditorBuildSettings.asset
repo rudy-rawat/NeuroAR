@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/HumanOverlayAnatomyScene.unity
     guid: cc77b2b5bf4c2d54e958b7ae560dda15
+  - enabled: 1
+    path: Assets/Scenes/RoadmapScene.unity
+    guid: 1d8a583f02f074a45a3ca7e8bd8000ac
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 79e7d13f7446100469bf8f0349dedaa7, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}

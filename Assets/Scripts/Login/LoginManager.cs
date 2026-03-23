@@ -63,6 +63,10 @@ public class LoginManager : MonoBehaviour
     [Tooltip("Web Client ID from Firebase Console → Project Settings → Your apps")]
     public string webClientId = "YOUR_WEB_CLIENT_ID_HERE";
 
+    [Header("Temporary Feature Toggles")]
+    [Tooltip("Temporarily disable Google Sign-In without deleting integration code.")]
+    public bool disableGoogleLogin = true;
+
     // ── Private state ─────────────────────────────────────────────────
 #if FIREBASE_ENABLED
     private FirebaseAuth auth;
@@ -94,7 +98,16 @@ public class LoginManager : MonoBehaviour
 
         // Wire up buttons
         if (googleSignInButton != null)
-            googleSignInButton.onClick.AddListener(OnGoogleSignInClicked);
+        {
+            if (disableGoogleLogin)
+            {
+                googleSignInButton.interactable = false;
+            }
+            else
+            {
+                googleSignInButton.onClick.AddListener(OnGoogleSignInClicked);
+            }
+        }
         else
             Debug.LogWarning("[LoginManager] Google Sign-In button not assigned.");
 
@@ -102,10 +115,20 @@ public class LoginManager : MonoBehaviour
             guestButton.onClick.AddListener(OnGuestClicked);
 
 #if FIREBASE_ENABLED
-        SetStatus("Initializing…");
-        InitializeFirebase();
+        if (disableGoogleLogin)
+        {
+            SetStatus("Google login is temporarily disabled. Use Guest login.");
+        }
+        else
+        {
+            SetStatus("Initializing…");
+            InitializeFirebase();
+        }
 #else
-        SetStatus("Demo mode – tap Sign In to try the app");
+        if (disableGoogleLogin)
+            SetStatus("Google login is temporarily disabled. Use Guest login.");
+        else
+            SetStatus("Demo mode – tap Sign In to try the app");
 #endif
     }
 

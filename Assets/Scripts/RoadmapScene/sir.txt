@@ -1,0 +1,8 @@
+We can scale up our project to a more general level, like outside of biology we can also develop it for a general learning purpose.
+We can add User Feedback
+Earning Model
+
+Presentation:
+8 - 10 slides
+Less text, more graphics
+Can add demo video in the slide itself
