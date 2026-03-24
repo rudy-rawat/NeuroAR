@@ -26,7 +26,15 @@ public class RoadmapResponse
     public string roadmapId;
     public string generatedAt;
     public string overallFocus;
+    public string source; // populated in Unity when using existing-or-generate endpoint
     public string learningNarrative; // optional backend field
     public string studyAdvice; // optional backend field
     public List<RoadmapStep> steps;
+}
+
+[Serializable]
+public class RoadmapEnvelopeResponse
+{
+    public string source;
+    public RoadmapResponse roadmap;
 }

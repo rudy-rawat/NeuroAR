@@ -41,11 +41,8 @@ public class RoadmapService : MonoBehaviour
 
     private IEnumerator GetRoadmapRoutine(string userId, bool forceRefresh, Action<RoadmapResponse> onSuccess, Action<string> onError)
     {
-        string url = $"{baseUrl.TrimEnd('/')}/api/agent/roadmap/{userId}";
-        if (forceRefresh)
-        {
-            url += "?forceRefresh=true";
-        }
+        string endpoint = forceRefresh ? "roadmap" : "roadmap-existing-or-generate";
+        string url = $"{baseUrl.TrimEnd('/')}/api/agent/{endpoint}/{userId}";
 
         bool retriedAfterProfileLoad = false;
 
@@ -61,7 +58,12 @@ public class RoadmapService : MonoBehaviour
                     try
                     {
                         string json = request.downloadHandler.text;
-                        RoadmapResponse response = JsonConvert.DeserializeObject<RoadmapResponse>(json);
+                        RoadmapResponse response = ParseRoadmapResponse(json, forceRefresh);
+                        if (response == null)
+                        {
+                            throw new Exception("Roadmap payload was empty or malformed.");
+                        }
+
                         onSuccess?.Invoke(response);
                         yield break;
                     }
@@ -168,5 +170,35 @@ public class RoadmapService : MonoBehaviour
         if (string.IsNullOrWhiteSpace(apiError)) return false;
         string normalized = apiError.ToLowerInvariant();
         return normalized.Contains("user not found") || normalized.Contains("profile not found");
+    }
+
+    private static RoadmapResponse ParseRoadmapResponse(string json, bool forceRefresh)
+    {
+        if (string.IsNullOrWhiteSpace(json))
+        {
+            return null;
+        }
+
+        if (forceRefresh)
+        {
+            return JsonConvert.DeserializeObject<RoadmapResponse>(json);
+        }
+
+        // Preferred response from /roadmap-existing-or-generate: { source, roadmap }
+        RoadmapEnvelopeResponse envelope = JsonConvert.DeserializeObject<RoadmapEnvelopeResponse>(json);
+        if (envelope != null && envelope.roadmap != null)
+        {
+            envelope.roadmap.source = envelope.source;
+            return envelope.roadmap;
+        }
+
+        // Backward-compatible fallback if backend returns a direct roadmap object.
+        RoadmapResponse directRoadmap = JsonConvert.DeserializeObject<RoadmapResponse>(json);
+        if (directRoadmap != null && string.IsNullOrEmpty(directRoadmap.source))
+        {
+            directRoadmap.source = "generated";
+        }
+
+        return directRoadmap;
     }
 }

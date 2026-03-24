@@ -601,7 +601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c2b87bd54298494cb000289f85d4114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoadmapService
-  baseUrl: http://localhost:3000
+  baseUrl: https://neuroai-backend-production.up.railway.app
 --- !u!4 &653114788
 Transform:
   m_ObjectHideFlags: 0
