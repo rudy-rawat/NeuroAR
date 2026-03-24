@@ -33,6 +33,9 @@ public class LearnerProfile
 
     // ── Agent 1 summary (computed by backend) ────────────────────────
     public AgentSummary agentSummary = new AgentSummary();
+
+    // ── Safe feedback sandbox state ───────────────────────────────────
+    public LearningPreferences learningPreferences = new LearningPreferences();
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -112,4 +115,12 @@ public class RepeatedMistake
     public string question;
     public int    wrongCount;
     public string lastWrongAt;
+}
+
+[Serializable]
+public class LearningPreferences
+{
+    public int complexityLevel = 5;
+    public string pacing = "moderate"; // slow | moderate | fast
+    public bool visualDependency = false;
 }
