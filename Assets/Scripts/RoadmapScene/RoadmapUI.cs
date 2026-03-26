@@ -8,14 +8,18 @@ public class RoadmapUI : MonoBehaviour
     [Header("Header")]
     public TMP_Text overallFocusText;
 
+    [Header("Top Buttons")]
+    public Button refreshButton;
+
     [Header("Status Text")]
+    [HideInInspector]
     public TMP_Text roadmapBodyText;
 
     [Header("Typography")]
-    public int headingFontSize = 44;
-    public int bodyFontSize = 28;
-    public int sectionHeaderFontSize = 30;
-    public int sectionBodyFontSize = 26;
+    public int headingFontSize = 100;
+    public int bodyFontSize = 80;
+    public int sectionHeaderFontSize = 80;
+    public int sectionBodyFontSize = 80;
 
     [Header("Body Panel")]
     public Color bodyPanelColor = new Color(0.10f, 0.14f, 0.22f, 0.95f);
@@ -27,8 +31,21 @@ public class RoadmapUI : MonoBehaviour
 
     private void Start()
     {
-        ConfigureResponsiveCanvas();
+        // Keep scene-authored UI positions/sizes unchanged (e.g., Back button).
         EnsureDropdownLayout();
+
+        _refreshButton = ResolveRefreshButton();
+        if (_refreshButton != null)
+        {
+            _refreshButton.onClick.RemoveListener(OnRefreshClicked);
+            _refreshButton.onClick.AddListener(OnRefreshClicked);
+            _refreshButton.interactable = true;
+            _refreshButton.transform.SetAsLastSibling();
+        }
+        else
+        {
+            Debug.LogWarning("RoadmapUI: Refresh button not assigned/found. Assign it in inspector or name it 'Referesh Button' under Canvas/HeaderLayer.");
+        }
 
         if (overallFocusText != null)
         {
@@ -113,7 +130,7 @@ public class RoadmapUI : MonoBehaviour
 
         if (overallFocusText != null)
         {
-            overallFocusText.text = "Your Personalized Learning Roadmap";
+            overallFocusText.text = "Personalized Learning Roadmap";
             ApplyHeaderStyle();
         }
 
@@ -172,20 +189,53 @@ public class RoadmapUI : MonoBehaviour
         overallFocusText.fontStyle = FontStyles.Bold;
         overallFocusText.textWrappingMode = TextWrappingModes.Normal;
         overallFocusText.color = Color.white;
+        overallFocusText.raycastTarget = false;
     }
 
-    private void ConfigureResponsiveCanvas()
+    private void OnRefreshClicked()
     {
+        Debug.Log("[RoadmapUI] Refresh clicked");
+        LoadRoadmap(true);
+    }
+
+    private Button ResolveRefreshButton()
+    {
+        if (refreshButton != null) return refreshButton;
+
         Canvas parentCanvas = GetComponentInParent<Canvas>();
-        if (parentCanvas == null) return;
+        if (parentCanvas == null) return null;
 
-        CanvasScaler scaler = parentCanvas.GetComponent<CanvasScaler>();
-        if (scaler == null) return;
+        string[] preferredPaths =
+        {
+            "HeaderLayer/Referesh Button",
+            "HeaderLayer/Refresh Button",
+            "HeaderLayer/RefreshButton",
+            "Referesh Button",
+            "Refresh Button",
+            "RefreshButton"
+        };
 
-        scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-        scaler.referenceResolution = new Vector2(1080, 1920);
-        scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
-        scaler.matchWidthOrHeight = 0f;
+        for (int i = 0; i < preferredPaths.Length; i++)
+        {
+            Transform t = parentCanvas.transform.Find(preferredPaths[i]);
+            if (t != null)
+            {
+                Button b = t.GetComponent<Button>();
+                if (b != null) return b;
+            }
+        }
+
+        Button[] allButtons = parentCanvas.GetComponentsInChildren<Button>(true);
+        for (int i = 0; i < allButtons.Length; i++)
+        {
+            string n = allButtons[i].name.ToLowerInvariant();
+            if (n.Contains("refresh") || n.Contains("referesh"))
+            {
+                return allButtons[i];
+            }
+        }
+
+        return null;
     }
 
     private void EnsureDropdownLayout()
@@ -233,63 +283,17 @@ public class RoadmapUI : MonoBehaviour
 
         RectTransform statusRect = statusGo.GetComponent<RectTransform>();
         statusRect.anchorMin = new Vector2(0f, 0.90f);
-        statusRect.anchorMax = new Vector2(0.75f, 1f);
+        statusRect.anchorMax = new Vector2(1f, 1f);
         statusRect.offsetMin = new Vector2(20f, 0f);
-        statusRect.offsetMax = new Vector2(-8f, -8f);
+        statusRect.offsetMax = new Vector2(-20f, -8f);
 
         roadmapBodyText = statusGo.GetComponent<TextMeshProUGUI>();
         if (roadmapBodyText == null) roadmapBodyText = statusGo.AddComponent<TextMeshProUGUI>();
-        roadmapBodyText.fontSize = bodyFontSize - 3;
+        roadmapBodyText.fontSize = bodyFontSize - 1;
         roadmapBodyText.textWrappingMode = TextWrappingModes.Normal;
         roadmapBodyText.alignment = TextAlignmentOptions.MidlineLeft;
         roadmapBodyText.color = new Color(0.90f, 0.95f, 1f);
-
-        GameObject refreshGo = panel.transform.Find("RefreshButton")?.gameObject;
-        if (refreshGo == null)
-        {
-            refreshGo = new GameObject("RefreshButton");
-            refreshGo.transform.SetParent(panel.transform, false);
-            refreshGo.AddComponent<RectTransform>();
-        }
-
-        RectTransform refreshRect = refreshGo.GetComponent<RectTransform>();
-        refreshRect.anchorMin = new Vector2(0.76f, 0.90f);
-        refreshRect.anchorMax = new Vector2(1f, 1f);
-        refreshRect.offsetMin = new Vector2(8f, 6f);
-        refreshRect.offsetMax = new Vector2(-20f, -8f);
-
-        Image refreshBg = refreshGo.GetComponent<Image>();
-        if (refreshBg == null) refreshBg = refreshGo.AddComponent<Image>();
-        refreshBg.color = new Color(0.20f, 0.45f, 0.70f, 1f);
-
-        _refreshButton = refreshGo.GetComponent<Button>();
-        if (_refreshButton == null) _refreshButton = refreshGo.AddComponent<Button>();
-        _refreshButton.targetGraphic = refreshBg;
-        _refreshButton.onClick.RemoveAllListeners();
-        _refreshButton.onClick.AddListener(() => LoadRoadmap(true));
-
-        Transform refreshTextTransform = refreshGo.transform.Find("Label");
-        GameObject refreshTextGo = refreshTextTransform != null ? refreshTextTransform.gameObject : null;
-        if (refreshTextGo == null)
-        {
-            refreshTextGo = new GameObject("Label");
-            refreshTextGo.transform.SetParent(refreshGo.transform, false);
-            refreshTextGo.AddComponent<RectTransform>();
-        }
-
-        RectTransform refreshTextRect = refreshTextGo.GetComponent<RectTransform>();
-        refreshTextRect.anchorMin = Vector2.zero;
-        refreshTextRect.anchorMax = Vector2.one;
-        refreshTextRect.offsetMin = new Vector2(6f, 4f);
-        refreshTextRect.offsetMax = new Vector2(-6f, -4f);
-
-        TMP_Text refreshText = refreshTextGo.GetComponent<TextMeshProUGUI>();
-        if (refreshText == null) refreshText = refreshTextGo.AddComponent<TextMeshProUGUI>();
-        refreshText.text = "Refresh";
-        refreshText.fontSize = bodyFontSize;
-        refreshText.alignment = TextAlignmentOptions.Center;
-        refreshText.textWrappingMode = TextWrappingModes.NoWrap;
-        refreshText.color = Color.white;
+        roadmapBodyText.raycastTarget = false;
 
         GameObject scrollGo = panel.transform.Find("RoadmapAccordionScroll")?.gameObject;
         if (scrollGo == null)
@@ -353,8 +357,8 @@ public class RoadmapUI : MonoBehaviour
 
         VerticalLayoutGroup rootLayout = contentGo.GetComponent<VerticalLayoutGroup>();
         if (rootLayout == null) rootLayout = contentGo.AddComponent<VerticalLayoutGroup>();
-        rootLayout.padding = new RectOffset(6, 6, 6, 8);
-        rootLayout.spacing = 12;
+        rootLayout.padding = new RectOffset(8, 8, 8, 10);
+        rootLayout.spacing = 26;
         rootLayout.childControlHeight = true;
         rootLayout.childControlWidth = true;
         rootLayout.childForceExpandHeight = false;
@@ -371,8 +375,6 @@ public class RoadmapUI : MonoBehaviour
     private void BuildRoadmapSections(RoadmapResponse response)
     {
         string roadmapMeta =
-            $"Roadmap ID: {response.roadmapId}\n" +
-            $"Generated At: {response.generatedAt}\n" +
             $"Overall Focus: {response.overallFocus}\n" +
             (!string.IsNullOrEmpty(response.learningNarrative) ? $"Narrative: {response.learningNarrative}\n" : "") +
             (!string.IsNullOrEmpty(response.studyAdvice) ? $"Study Advice: {response.studyAdvice}\n" : "");
@@ -427,15 +429,15 @@ public class RoadmapUI : MonoBehaviour
         bg.color = new Color(0.15f, 0.19f, 0.28f, 0.92f);
 
         VerticalLayoutGroup cardLayout = card.AddComponent<VerticalLayoutGroup>();
-        cardLayout.padding = new RectOffset(10, 10, 8, 8);
-        cardLayout.spacing = 8;
+        cardLayout.padding = new RectOffset(12, 12, 10, 10);
+        cardLayout.spacing = 10;
         cardLayout.childControlHeight = true;
         cardLayout.childControlWidth = true;
         cardLayout.childForceExpandHeight = false;
         cardLayout.childForceExpandWidth = true;
 
         LayoutElement cardLE = card.AddComponent<LayoutElement>();
-        cardLE.minHeight = 80;
+        cardLE.minHeight = 96;
 
         GameObject headerBtnGo = new GameObject("HeaderButton");
         headerBtnGo.transform.SetParent(card.transform, false);
@@ -445,15 +447,15 @@ public class RoadmapUI : MonoBehaviour
         headerBtn.targetGraphic = headerBg;
 
         LayoutElement headerLE = headerBtnGo.AddComponent<LayoutElement>();
-        headerLE.minHeight = 72;
+        headerLE.minHeight = 88;
 
         GameObject headerLabelGo = new GameObject("HeaderLabel");
         headerLabelGo.transform.SetParent(headerBtnGo.transform, false);
         RectTransform headerRect = headerLabelGo.AddComponent<RectTransform>();
         headerRect.anchorMin = new Vector2(0f, 0f);
         headerRect.anchorMax = new Vector2(1f, 1f);
-        headerRect.offsetMin = new Vector2(18f, 8f);
-        headerRect.offsetMax = new Vector2(-52f, -8f);
+        headerRect.offsetMin = new Vector2(20f, 10f);
+        headerRect.offsetMax = new Vector2(-56f, -10f);
         TMP_Text headerLabel = headerLabelGo.AddComponent<TextMeshProUGUI>();
         headerLabel.text = headerText;
         headerLabel.fontSize = sectionHeaderFontSize;
@@ -466,8 +468,8 @@ public class RoadmapUI : MonoBehaviour
         RectTransform arrowRect = arrowGo.AddComponent<RectTransform>();
         arrowRect.anchorMin = new Vector2(1f, 0f);
         arrowRect.anchorMax = new Vector2(1f, 1f);
-        arrowRect.offsetMin = new Vector2(-40f, 0f);
-        arrowRect.offsetMax = new Vector2(-8f, 0f);
+        arrowRect.offsetMin = new Vector2(-48f, 0f);
+        arrowRect.offsetMax = new Vector2(-10f, 0f);
         TMP_Text arrow = arrowGo.AddComponent<TextMeshProUGUI>();
         arrow.fontSize = sectionHeaderFontSize;
         arrow.alignment = TextAlignmentOptions.Center;
@@ -479,8 +481,8 @@ public class RoadmapUI : MonoBehaviour
         bodyBg.color = new Color(0.08f, 0.12f, 0.19f, 0.82f);
 
         VerticalLayoutGroup bodyLayout = bodyGo.AddComponent<VerticalLayoutGroup>();
-        bodyLayout.padding = new RectOffset(16, 16, 14, 14);
-        bodyLayout.spacing = 10;
+        bodyLayout.padding = new RectOffset(18, 18, 16, 16);
+        bodyLayout.spacing = 12;
         bodyLayout.childControlHeight = true;
         bodyLayout.childControlWidth = true;
         bodyLayout.childForceExpandHeight = false;
@@ -499,9 +501,10 @@ public class RoadmapUI : MonoBehaviour
             openBtn.onClick.AddListener(onOpenResource);
 
             LayoutElement openLE = openBtnGo.AddComponent<LayoutElement>();
-            openLE.minHeight = 58;
+            openLE.minHeight = 70;
+            openLE.preferredHeight = 76;
 
-            CreateBodyText(openBtnGo.transform, "Open Resource", sectionBodyFontSize - 1, Color.white, TextAlignmentOptions.Center);
+            CreateButtonLabel(openBtnGo.transform, "Open Resource", Mathf.Max(20, sectionBodyFontSize - 4), Color.white);
         }
 
         bodyGo.SetActive(expandedByDefault);
@@ -535,8 +538,28 @@ public class RoadmapUI : MonoBehaviour
         label.alignment = align;
 
         LayoutElement le = labelGo.AddComponent<LayoutElement>();
-        le.minHeight = 42;
+        le.minHeight = 50;
         le.preferredHeight = -1;
+    }
+
+    private void CreateButtonLabel(Transform parent, string text, int size, Color color)
+    {
+        GameObject labelGo = new GameObject("ButtonText");
+        labelGo.transform.SetParent(parent, false);
+
+        RectTransform rect = labelGo.AddComponent<RectTransform>();
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.one;
+        rect.offsetMin = new Vector2(8f, 6f);
+        rect.offsetMax = new Vector2(-8f, -6f);
+
+        TMP_Text label = labelGo.AddComponent<TextMeshProUGUI>();
+        label.text = text;
+        label.fontSize = size;
+        label.color = color;
+        label.alignment = TextAlignmentOptions.Center;
+        label.textWrappingMode = TextWrappingModes.NoWrap;
+        label.overflowMode = TextOverflowModes.Ellipsis;
     }
 
     private void OnResourceClicked(RoadmapResource resource)
