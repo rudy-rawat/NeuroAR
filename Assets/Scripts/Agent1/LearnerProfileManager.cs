@@ -25,7 +25,7 @@ public class LearnerProfileManager : MonoBehaviour
     // ── Inspector ─────────────────────────────────────────────────────
     [Header("Azure Functions Base URL")]
     [Tooltip("e.g. https://your-app.azurewebsites.net  (no trailing slash)")]
-    public string azureFunctionsBaseUrl = "https://neuroai-backend-production.up.railway.app";
+    public string azureFunctionsBaseUrl = "https://neuroar-apb0bnbwgvaqf2b4.centralindia-01.azurewebsites.net/";
 
     [Header("Settings")]
     [Tooltip("Scene to load after profile is ready and onboarding is done.")]

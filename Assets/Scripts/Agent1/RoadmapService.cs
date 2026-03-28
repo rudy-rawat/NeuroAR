@@ -10,12 +10,12 @@ public class RoadmapService : MonoBehaviour
     public static RoadmapService Instance { get; private set; }
 
     [SerializeField]
-    public string baseUrl = "https://neuroai-backend-production.up.railway.app"; // Adjust to actual backend URL or Production URL
+    public string baseUrl = "https://neuroar-apb0bnbwgvaqf2b4.centralindia-01.azurewebsites.net/"; // Adjust to actual backend URL or Production URL
 
     private void Awake()
     {
         // Force URL override in case an old local URL got saved in the Unity Inspector
-        baseUrl = "https://neuroai-backend-production.up.railway.app";
+        baseUrl = "https://neuroar-apb0bnbwgvaqf2b4.centralindia-01.azurewebsites.net/";
 
         if (Instance == null)
         {

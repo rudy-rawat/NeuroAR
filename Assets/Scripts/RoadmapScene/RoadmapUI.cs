@@ -22,12 +22,21 @@ public class RoadmapUI : MonoBehaviour
     public int sectionBodyFontSize = 80;
 
     [Header("Body Panel")]
-    public Color bodyPanelColor = new Color(0.10f, 0.14f, 0.22f, 0.95f);
+    public Color bodyPanelColor = new Color(0.20f, 0.39f, 0.60f, 0.24f);
+
+    [Header("Corner Style")]
+    public bool useRoundedCorners = true;
+    [Range(0.05f, 0.45f)] public float cornerRadiusNormalized = 0.22f;
+    [Range(32, 256)] public int cornerTextureSize = 128;
 
     private GameObject _bodyPanel;
     private ScrollRect _scroll;
     private RectTransform _content;
     private Button _refreshButton;
+    private Sprite _roundedSprite;
+    private Texture2D _roundedTexture;
+    private float _cachedCornerRadius;
+    private int _cachedCornerTextureSize;
 
     private void Start()
     {
@@ -272,6 +281,7 @@ public class RoadmapUI : MonoBehaviour
         Image bg = panel.GetComponent<Image>();
         if (bg == null) bg = panel.AddComponent<Image>();
         bg.color = bodyPanelColor;
+        ApplyRoundedStyle(bg);
 
         GameObject statusGo = panel.transform.Find("RoadmapStatusText")?.gameObject;
         if (statusGo == null)
@@ -312,6 +322,7 @@ public class RoadmapUI : MonoBehaviour
         Image scrollImage = scrollGo.GetComponent<Image>();
         if (scrollImage == null) scrollImage = scrollGo.AddComponent<Image>();
         scrollImage.color = new Color(0.05f, 0.09f, 0.15f, 0.55f);
+        ApplyRoundedStyle(scrollImage);
 
         _scroll = scrollGo.GetComponent<ScrollRect>();
         if (_scroll == null) _scroll = scrollGo.AddComponent<ScrollRect>();
@@ -427,6 +438,7 @@ public class RoadmapUI : MonoBehaviour
 
         Image bg = card.AddComponent<Image>();
         bg.color = new Color(0.15f, 0.19f, 0.28f, 0.92f);
+        ApplyRoundedStyle(bg);
 
         VerticalLayoutGroup cardLayout = card.AddComponent<VerticalLayoutGroup>();
         cardLayout.padding = new RectOffset(12, 12, 10, 10);
@@ -443,6 +455,7 @@ public class RoadmapUI : MonoBehaviour
         headerBtnGo.transform.SetParent(card.transform, false);
         Image headerBg = headerBtnGo.AddComponent<Image>();
         headerBg.color = new Color(0.19f, 0.28f, 0.42f, 1f);
+        ApplyRoundedStyle(headerBg);
         Button headerBtn = headerBtnGo.AddComponent<Button>();
         headerBtn.targetGraphic = headerBg;
 
@@ -479,6 +492,7 @@ public class RoadmapUI : MonoBehaviour
         bodyGo.transform.SetParent(card.transform, false);
         Image bodyBg = bodyGo.AddComponent<Image>();
         bodyBg.color = new Color(0.08f, 0.12f, 0.19f, 0.82f);
+        ApplyRoundedStyle(bodyBg);
 
         VerticalLayoutGroup bodyLayout = bodyGo.AddComponent<VerticalLayoutGroup>();
         bodyLayout.padding = new RectOffset(18, 18, 16, 16);
@@ -496,6 +510,7 @@ public class RoadmapUI : MonoBehaviour
             openBtnGo.transform.SetParent(bodyGo.transform, false);
             Image openBg = openBtnGo.AddComponent<Image>();
             openBg.color = new Color(0.18f, 0.48f, 0.74f, 1f);
+            ApplyRoundedStyle(openBg);
             Button openBtn = openBtnGo.AddComponent<Button>();
             openBtn.targetGraphic = openBg;
             openBtn.onClick.AddListener(onOpenResource);
@@ -581,5 +596,139 @@ public class RoadmapUI : MonoBehaviour
     {
         if (string.IsNullOrEmpty(name)) return "Section";
         return name.Replace('/', '_').Replace(':', '_').Replace(' ', '_');
+    }
+
+    private void ApplyRoundedStyle(Image image)
+    {
+        if (image == null || !useRoundedCorners)
+        {
+            return;
+        }
+
+        Sprite rounded = GetOrCreateRoundedSprite();
+        if (rounded == null)
+        {
+            return;
+        }
+
+        image.sprite = rounded;
+        image.type = Image.Type.Sliced;
+        image.pixelsPerUnitMultiplier = 1f;
+    }
+
+    private Sprite GetOrCreateRoundedSprite()
+    {
+        int size = Mathf.Clamp(cornerTextureSize, 32, 256);
+        float radius = Mathf.Clamp01(cornerRadiusNormalized);
+
+        if (_roundedSprite != null && Mathf.Approximately(_cachedCornerRadius, radius) && _cachedCornerTextureSize == size)
+        {
+            return _roundedSprite;
+        }
+
+        if (_roundedSprite != null)
+        {
+            Destroy(_roundedSprite);
+            _roundedSprite = null;
+        }
+
+        if (_roundedTexture != null)
+        {
+            Destroy(_roundedTexture);
+            _roundedTexture = null;
+        }
+
+        _cachedCornerRadius = radius;
+        _cachedCornerTextureSize = size;
+
+        int radiusPx = Mathf.Max(2, Mathf.RoundToInt(size * radius));
+        _roundedTexture = BuildRoundedTexture(size, radiusPx);
+        _roundedTexture.wrapMode = TextureWrapMode.Clamp;
+        _roundedTexture.filterMode = FilterMode.Bilinear;
+
+        float border = Mathf.Max(2f, radiusPx * 0.75f);
+        _roundedSprite = Sprite.Create(
+            _roundedTexture,
+            new Rect(0, 0, size, size),
+            new Vector2(0.5f, 0.5f),
+            100f,
+            0,
+            SpriteMeshType.FullRect,
+            new Vector4(border, border, border, border));
+
+        return _roundedSprite;
+    }
+
+    private Texture2D BuildRoundedTexture(int size, int radiusPx)
+    {
+        Texture2D tex = new Texture2D(size, size, TextureFormat.RGBA32, false);
+        tex.name = "RoadmapRoundedSprite";
+
+        Color32[] pixels = new Color32[size * size];
+        Color32 opaque = new Color32(255, 255, 255, 255);
+        Color32 transparent = new Color32(255, 255, 255, 0);
+
+        float r = radiusPx;
+        float aa = 1.25f;
+        float max = size - 1;
+
+        for (int y = 0; y < size; y++)
+        {
+            for (int x = 0; x < size; x++)
+            {
+                float px = x;
+                float py = y;
+
+                bool cornerRegion =
+                    (px < r && py < r) ||
+                    (px < r && py > max - r) ||
+                    (px > max - r && py < r) ||
+                    (px > max - r && py > max - r);
+
+                if (!cornerRegion)
+                {
+                    pixels[y * size + x] = opaque;
+                    continue;
+                }
+
+                float cx = px < r ? r : max - r;
+                float cy = py < r ? r : max - r;
+                float d = Vector2.Distance(new Vector2(px, py), new Vector2(cx, cy));
+
+                if (d <= r - aa)
+                {
+                    pixels[y * size + x] = opaque;
+                }
+                else if (d >= r + aa)
+                {
+                    pixels[y * size + x] = transparent;
+                }
+                else
+                {
+                    float t = Mathf.InverseLerp(r + aa, r - aa, d);
+                    byte a = (byte)Mathf.RoundToInt(t * 255f);
+                    pixels[y * size + x] = new Color32(255, 255, 255, a);
+                }
+            }
+        }
+
+        tex.SetPixels32(pixels);
+        tex.Apply(false, false);
+        return tex;
+    }
+
+    private void OnDestroy()
+    {
+        if (_roundedSprite != null)
+        {
+            Destroy(_roundedSprite);
+            _roundedSprite = null;
+        }
+
+        if (_roundedTexture != null)
+        {
+            Destroy(_roundedTexture);
+            _roundedTexture = null;
+        }
     }
 }

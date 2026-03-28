@@ -10,7 +10,7 @@ public class FeedbackService : MonoBehaviour
     public static FeedbackService Instance { get; private set; }
 
     [SerializeField]
-    public string baseUrl = "https://neuroai-backend-production.up.railway.app";
+    public string baseUrl = "https://neuroar-apb0bnbwgvaqf2b4.centralindia-01.azurewebsites.net/";
 
     private readonly JsonSerializerSettings _jsonSettings = new JsonSerializerSettings
     {

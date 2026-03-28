@@ -140,19 +140,19 @@ public class ProfileDashboardUI : MonoBehaviour
         if (s == null) return;
 
         if (organsStudiedLabel != null)
-            organsStudiedLabel.text = $"Organs studied: {s.organsStudiedCount}";
+            organsStudiedLabel.text = $"{s.organsStudiedCount}";
 
         if (levelLabel != null)
         {
             string raw = !string.IsNullOrEmpty(s.overallLevel) ? s.overallLevel : "beginner";
             string lvl = char.ToUpper(raw[0]) + raw.Substring(1);
-            levelLabel.text = $"Level: {lvl}";
+            levelLabel.text = $"{lvl}";
         }
 
         if (recommendedLabel != null && !string.IsNullOrEmpty(s.recommendedNextOrgan))
         {
             string next = char.ToUpper(s.recommendedNextOrgan[0]) + s.recommendedNextOrgan.Substring(1);
-            recommendedLabel.text = $"Next: {next}";
+            recommendedLabel.text = $"{next}";
         }
     }
 
@@ -169,7 +169,7 @@ public class ProfileDashboardUI : MonoBehaviour
                 float avg = 0f;
                 foreach (var q in history) avg += q.percentage;
                 avg /= history.Count;
-                quizScoreLabel.text = $"Avg quiz score: {avg:0}%";
+                quizScoreLabel.text = $"{avg:0}%";
             }
             else
             {
@@ -185,11 +185,11 @@ public class ProfileDashboardUI : MonoBehaviour
                 int show = Mathf.Min(2, summary.weakConcepts.Count);
                 string weak = string.Join(", ", summary.weakConcepts.GetRange(0, show));
                 if (summary.weakConcepts.Count > 2) weak += "…";
-                weakConceptsLabel.text = $"Weak: {weak}";
+                weakConceptsLabel.text = $"{weak}";
             }
             else
             {
-                weakConceptsLabel.text = "Weak concepts: Take a quiz to find out";
+                weakConceptsLabel.text = "Take a quiz to find out";
             }
         }
     }
@@ -262,11 +262,11 @@ public class ProfileDashboardUI : MonoBehaviour
             StartCoroutine(LoadProfilePhoto(session.PhotoUrl));
 
         // Set default text for stat labels (updated when Agent 1 data arrives)
-        if (organsStudiedLabel != null) organsStudiedLabel.text = "Organs studied: 0";
-        if (quizScoreLabel     != null) quizScoreLabel.text     = "Quiz score: No quizzes taken yet";
-        if (weakConceptsLabel  != null) weakConceptsLabel.text  = "Weak concepts: Take a quiz to find out";
-        if (levelLabel         != null) levelLabel.text         = "Level: Beginner";
-        if (recommendedLabel   != null) recommendedLabel.text   = "Next: Scan an organ to start";
+        if (organsStudiedLabel != null) organsStudiedLabel.text = "0";
+        if (quizScoreLabel     != null) quizScoreLabel.text     = "0%";
+        if (weakConceptsLabel  != null) weakConceptsLabel.text  = "Take a quiz to find out";
+        if (levelLabel         != null) levelLabel.text         = "Beginner";
+        if (recommendedLabel   != null) recommendedLabel.text   = "Scan an organ to start";
     }
 
     // ── Photo download ────────────────────────────────────────────────

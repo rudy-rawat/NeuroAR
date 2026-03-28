@@ -12,7 +12,7 @@ public class NarrationManager : MonoBehaviour
 
     [Header("Configuration")]
     [Tooltip("Must match the Azure Function App URL set on LearnerProfileManager.")]
-    public string azureFunctionsBaseUrl = "https://neuroai-backend-production.up.railway.app";
+    public string azureFunctionsBaseUrl = "https://neuroar-apb0bnbwgvaqf2b4.centralindia-01.azurewebsites.net/";
 
     [Header("References")]
     public NarrationBanner banner;

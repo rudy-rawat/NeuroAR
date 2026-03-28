@@ -57,7 +57,7 @@ public class LoginManager : MonoBehaviour
 
     [Header("Azure Functions URL  (Agent 1, 2 & 3)")]
     [Tooltip("Base URL of your Azure Function App, e.g. https://your-app.azurewebsites.net  (no trailing slash)")]
-    public string azureFunctionsBaseUrl = "https://neuroai-backend-production.up.railway.app";
+    public string azureFunctionsBaseUrl = "https://neuroar-apb0bnbwgvaqf2b4.centralindia-01.azurewebsites.net/";
 
     [Header("Firebase Config  (set before using real login)")]
     [Tooltip("Web Client ID from Firebase Console → Project Settings → Your apps")]

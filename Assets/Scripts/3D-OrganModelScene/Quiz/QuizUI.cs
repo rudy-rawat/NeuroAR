@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
@@ -101,7 +101,7 @@ public class QuizUI : MonoBehaviour
         if (string.IsNullOrEmpty(backendUrl) || backendUrl.Contains("your-app"))
             backendUrl = NarrationManager.Instance != null
                 ? NarrationManager.Instance.azureFunctionsBaseUrl
-                : "https://neuroai-backend-production.up.railway.app";
+                : "https://neuroar-apb0bnbwgvaqf2b4.centralindia-01.azurewebsites.net/";
         _quizService.Init(backendUrl);
 
         StartCoroutine(RequestAgent3Questions(organType));

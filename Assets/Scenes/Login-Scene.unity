@@ -156,7 +156,7 @@ MonoBehaviour:
   statusText: {fileID: 1209727700}
   loadingSpinner: {fileID: 1752630407}
   homeSceneName: Start-Scene
-  azureFunctionsBaseUrl: https://neuroai-backend-production.up.railway.app
+  azureFunctionsBaseUrl: https://neuroar-apb0bnbwgvaqf2b4.centralindia-01.azurewebsites.net/
   webClientId: 249083555834-tvj64fauoc7g7m4o1e8r4aqu0demjbo8.apps.googleusercontent.com
 --- !u!114 &121311513
 MonoBehaviour:

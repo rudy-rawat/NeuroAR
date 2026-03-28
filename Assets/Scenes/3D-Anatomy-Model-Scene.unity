@@ -2381,7 +2381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56dc3ec5970afab4693121055bd9117b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NarrationManager
-  azureFunctionsBaseUrl: https://neuroai-backend-production.up.railway.app
+  azureFunctionsBaseUrl: https://neuroar-apb0bnbwgvaqf2b4.centralindia-01.azurewebsites.net/
   banner: {fileID: 1133851601}
 --- !u!4 &796920993
 Transform:

@@ -154,11 +154,14 @@ MonoBehaviour:
   overallFocusText: {fileID: 277521489}
   refreshButton: {fileID: 1562501425}
   roadmapBodyText: {fileID: 0}
-  headingFontSize: 44
-  bodyFontSize: 28
-  sectionHeaderFontSize: 30
-  sectionBodyFontSize: 26
-  bodyPanelColor: {r: 0.19607843, g: 0.39215687, b: 0.6039216, a: 0.95}
+  headingFontSize: 90
+  bodyFontSize: 45
+  sectionHeaderFontSize: 45
+  sectionBodyFontSize: 45
+  bodyPanelColor: {r: 0.19607843, g: 0.39215687, b: 0.6039216, a: 0.47058824}
+  useRoundedCorners: 1
+  cornerRadiusNormalized: 0.22
+  cornerTextureSize: 128
 --- !u!114 &222637562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,7 +194,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ReferenceResolution: {x: 1080, y: 2340}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -387,11 +390,11 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSizeBase: 30
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 30
+  m_fontSizeMax: 60
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -453,11 +456,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 337099069}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.18, y: 0.1}
-  m_AnchorMax: {x: 0.95, y: 0.9}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -142}
+  m_SizeDelta: {x: 832, y: 285}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &337099068
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,14 +549,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.12, g: 0.12, b: 0.15, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: d2183ff750ef8544fbb66ed2ae6a4a18, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -600,7 +603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c2b87bd54298494cb000289f85d4114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoadmapService
-  baseUrl: https://neuroai-backend-production.up.railway.app
+  baseUrl: https://neuroar-apb0bnbwgvaqf2b4.centralindia-01.azurewebsites.net/
 --- !u!4 &653114788
 Transform:
   m_ObjectHideFlags: 0
@@ -652,7 +655,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 120, y: -120}
+  m_AnchoredPosition: {x: 40, y: -40}
   m_SizeDelta: {x: 316.9, y: 116}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &815360060
@@ -1082,7 +1085,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -120, y: -120}
+  m_AnchoredPosition: {x: -40, y: -40}
   m_SizeDelta: {x: 116, y: 116}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1562501425
