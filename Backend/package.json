@@ -1,0 +1,23 @@
+{
+  "name": "neuroai",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "@huggingface/inference": "^4.13.15",
+    "@langchain/community": "^1.1.22",
+    "@langchain/core": "^1.1.31",
+    "@langchain/groq": "^1.1.4",
+    "@langchain/langgraph": "^1.2.0",
+    "@langchain/mongodb": "^1.1.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "langchain": "^1.2.30",
+    "mongodb": "^6.21.0",
+    "nodemon": "^3.1.14"
+  }
+}

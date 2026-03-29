@@ -1,0 +1,106 @@
+{
+  "id": "firebase-uid-abc123",
+  "userId": "firebase-uid-abc123",
+  "displayName": "Aryan Rawat",
+  "email": "aryan@gmail.com",
+  "photoUrl": "https://lh3.googleusercontent.com/...",
+  "isGuest": false,
+  "createdAt": "2026-03-06T10:00:00Z",
+  "lastActiveAt": "2026-03-06T14:30:00Z",
+  "onboarding": {
+    "completed": true,
+    "grade": "Class 11",
+    "priorKnowledge": "beginner",
+    "learningGoal": "exam preparation"
+  },
+  "organHistory": {
+    "heart": {
+      "organName": "heart",
+      "firstStudiedAt": "2026-03-05T09:00:00Z",
+      "lastStudiedAt": "2026-03-06T14:00:00Z",
+      "totalTimeSeconds": 240,
+      "viewedBasic": true,
+      "viewedDetailed": true,
+      "viewedLabels": true,
+      "viewedInfo": true,
+      "sessionCount": 3
+    },
+    "brain": {
+      "...": "..."
+    }
+  },
+  "quizHistory": [
+    {
+      "quizId": "quiz-20260306-001",
+      "organName": "heart",
+      "takenAt": "2026-03-06T14:10:00Z",
+      "triggeredBy": "user",
+      "totalQuestions": 5,
+      "score": 3,
+      "percentage": 60.0,
+      "answers": [
+        {
+          "question": "What are the four chambers of the heart?",
+          "selectedOption": "Left/Right Ventricle, Left/Right Atrium",
+          "correctOption": "Left/Right Ventricle, Left/Right Atrium",
+          "isCorrect": true,
+          "timeSpentSeconds": 8
+        },
+        {
+          "question": "Which valve separates the left atrium and left ventricle?",
+          "selectedOption": "Tricuspid valve",
+          "correctOption": "Mitral valve",
+          "isCorrect": false,
+          "timeSpentSeconds": 12
+        }
+      ]
+    }
+  ],
+  "agentSummary": {
+    "lastComputedAt": "2026-03-06T14:10:00Z",
+    "organsStudiedCount": 4,
+    "strongConcepts": [
+      "heart chambers",
+      "lung structure"
+    ],
+    "weakConcepts": [
+      "heart valves",
+      "kidney filtration"
+    ],
+    "repeatedMistakes": [
+      {
+        "organName": "heart",
+        "question": "Which valve separates the left atrium and left ventricle?",
+        "wrongCount": 2,
+        "lastWrongAt": "2026-03-06T14:10:00Z"
+      }
+    ],
+    "recommendedNextOrgan": "kidney",
+    "overallLevel": "beginner"
+  },
+  "roadmap": {
+    "roadmapId": "rm_12345",
+    "generatedAt": "2026-03-21T10:00:00Z",
+    "overallFocus": "Improving cardiovascular system fundamentals",
+    "steps": [
+      {
+        "stepNumber": 1,
+        "topic": "Heart Anatomy Basics",
+        "description": "Understand the 4 chambers and basic blood flow.",
+        "estimatedTimeInMinutes": 15,
+        "resources": [
+          {
+            "name": "View 3D Heart Model",
+            "type": "organ_scene",
+            "referenceId": "organ_heart"
+          },
+          {
+            "name": "Crash Course: The Heart",
+            "type": "external_link",
+            "url": "https://youtube.com/..."
+          }
+        ]
+      }
+    ]
+  }
+}
