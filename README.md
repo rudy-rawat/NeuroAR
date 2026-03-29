@@ -15,7 +15,7 @@ The system is built with a Unity front end and a Node.js backend, enabling real-
 
 ## Visual Preview
 
-![Project Banner Placeholder](docs/images/project-banner-placeholder.png)
+![Project Banner Placeholder](docs/images/neuroar_readme_banners.svg)
 
 ### Planned Screenshot Placeholders
 
