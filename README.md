@@ -17,53 +17,28 @@ The system is built with a Unity front end and a Node.js backend, enabling real-
 
 ![Project Banner Placeholder](docs/images/project-banner-placeholder.png)
 
-Use the banner path above as a placeholder. Replace with your final hero image anytime.
-
-<table>
-  <tr>
-    <td align="center"><img src="docs/images/home_screen.png" width="240" alt="Home Screen"/></td>
-    <td align="center"><img src="docs/images/basic_model.jpeg" width="240" alt="Basic Organ Model"/></td>
-    <td align="center"><img src="docs/images/detailed_model_labels.jpeg" width="240" alt="Detailed Organ Labels"/></td>
-  </tr>
-  <tr>
-    <td align="center"><b>Home Screen</b></td>
-    <td align="center"><b>Basic Organ View</b></td>
-    <td align="center"><b>Labeled AR View</b></td>
-  </tr>
-  <tr>
-    <td align="center"><img src="docs/images/organ_description.jpeg" width="240" alt="Organ Description"/></td>
-    <td align="center"><img src="docs/images/quiz_result.jpeg" width="240" alt="Quiz Result"/></td>
-    <td align="center"><img src="https://via.placeholder.com/240x150?text=Your+New+Screenshot" width="240" alt="Screenshot Placeholder"/></td>
-  </tr>
-  <tr>
-    <td align="center"><b>Description Panel</b></td>
-    <td align="center"><b>Adaptive Quiz Result</b></td>
-    <td align="center"><b>Placeholder Slot</b></td>
-  </tr>
-</table>
-
 ### Planned Screenshot Placeholders
 
 <table>
   <tr>
-    <td align="center"><img src="https://via.placeholder.com/280x170?text=Login+Page" width="240" alt="Login Page Placeholder"/></td>
-    <td align="center"><img src="https://via.placeholder.com/280x170?text=Dashboard" width="240" alt="Dashboard Placeholder"/></td>
-    <td align="center"><img src="https://via.placeholder.com/280x170?text=Profile" width="240" alt="Profile Placeholder"/></td>
+    <td align="center"><img src="docs/images/Dashboard.jpeg" width="240" alt="Dashboard Placeholder"/></td>
+    <td align="center"><img src="docs/images/Profile.jpeg" width="240" alt="Profile Placeholder"/></td>
+    <td align="center"><img src="docs/images/AI-Narration.jpeg" width="240" alt="AI-arration Placeholder"/></td>
   </tr>
   <tr>
-    <td align="center"><b>Login Page</b></td>
     <td align="center"><b>Dashboard</b></td>
     <td align="center"><b>Profile</b></td>
+    <td align="center"><b>AI-Narration</b></td>
   </tr>
   <tr>
-    <td align="center"><img src="https://via.placeholder.com/280x170?text=Narration" width="240" alt="Narration Placeholder"/></td>
-    <td align="center"><img src="https://via.placeholder.com/280x170?text=Quiz" width="240" alt="Quiz Placeholder"/></td>
-    <td align="center"><img src="https://via.placeholder.com/280x170?text=Roadmap" width="240" alt="Roadmap Placeholder"/></td>
+    <td align="center"><img src="docs/images/Roadmap.jpeg" width="240" alt="Roadmap Placeholder"/></td>
+    <td align="center"><img src="docs/images/Quiz.jpeg" width="240" alt="Quiz Placeholder"/></td>
+    <td align="center"><img src="docs/images/Feedback.jpeg" width="240" alt="Feedback Placeholder"/></td>
   </tr>
   <tr>
-    <td align="center"><b>Narration</b></td>
-    <td align="center"><b>Quiz</b></td>
     <td align="center"><b>Roadmap</b></td>
+    <td align="center"><b>Quiz</b></td>
+    <td align="center"><b>Feedback</b></td>
   </tr>
 </table>
 
