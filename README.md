@@ -1,4 +1,4 @@
-# AR Anatomy - Adaptive Educational Augmented Reality Platform
+# NeuroAR - Adaptive Educational Augmented Reality Platform
 
 ![Status](https://img.shields.io/badge/status-active%20prototype-gold)
 ![Engine](https://img.shields.io/badge/engine-Unity%206-black)
@@ -7,7 +7,7 @@
 ![AI](https://img.shields.io/badge/AI-4%20Adaptive%20Agents-0a66c2)
 ![DB](https://img.shields.io/badge/database-MongoDB-47a248)
 
-AR Anatomy is an educational AR learning experience that combines textbook-based organ visualization with adaptive AI tutoring, quizzes, and personalized roadmap generation.
+NeuroAR is an educational AR learning experience that combines textbook-based organ visualization with adaptive AI tutoring, quizzes, and personalized roadmap generation.
 
 The system is built with a Unity front end and a Node.js backend, enabling real-time interaction on device and persistent learner intelligence in the cloud.
 
@@ -47,7 +47,7 @@ The system is built with a Unity front end and a Node.js backend, enabling real-
 ## Repository Structure
 
 ~~~text
-AR-Anatomy/
+NeuroAR/
 |
 |-- README.md
 |-- docs/
@@ -87,10 +87,10 @@ AR-Anatomy/
 |----------|---------|
 | Engine | Unity 6 |
 | AR Stack | Vuforia + AR Foundation |
-| Platform | Android/Desktop |
+| Platform | Android |
 | Language | C# (Unity), JavaScript (Backend) |
 | Backend | Node.js + Express |
-| AI Runtime | Groq LLM through LangChain |
+| AI Runtime |OpenAI LLM through LangChain |
 | Database | MongoDB |
 | Domain | Educational AR Anatomy |
 
@@ -119,7 +119,7 @@ flowchart LR
       AG[agents.js]
       DB[db.js]
       MDB[(MongoDB)]
-      LLM[(Groq LLM)]
+      LLM[(OpenAI LLM)]
     end
 
     L --> US
@@ -285,12 +285,6 @@ PORT=8080
 2. Create a feature branch.
 3. Commit focused, tested changes.
 4. Open a pull request with clear context and screenshots.
-
----
-
-## License
-
-Add your preferred license here, such as MIT or Apache-2.0.
 
 ---
 
