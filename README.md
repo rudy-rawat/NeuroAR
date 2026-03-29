@@ -42,6 +42,31 @@ Use the banner path above as a placeholder. Replace with your final hero image a
   </tr>
 </table>
 
+### Planned Screenshot Placeholders
+
+<table>
+  <tr>
+    <td align="center"><img src="https://via.placeholder.com/280x170?text=Login+Page" width="240" alt="Login Page Placeholder"/></td>
+    <td align="center"><img src="https://via.placeholder.com/280x170?text=Dashboard" width="240" alt="Dashboard Placeholder"/></td>
+    <td align="center"><img src="https://via.placeholder.com/280x170?text=Profile" width="240" alt="Profile Placeholder"/></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Login Page</b></td>
+    <td align="center"><b>Dashboard</b></td>
+    <td align="center"><b>Profile</b></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="https://via.placeholder.com/280x170?text=Narration" width="240" alt="Narration Placeholder"/></td>
+    <td align="center"><img src="https://via.placeholder.com/280x170?text=Quiz" width="240" alt="Quiz Placeholder"/></td>
+    <td align="center"><img src="https://via.placeholder.com/280x170?text=Roadmap" width="240" alt="Roadmap Placeholder"/></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Narration</b></td>
+    <td align="center"><b>Quiz</b></td>
+    <td align="center"><b>Roadmap</b></td>
+  </tr>
+</table>
+
 ---
 
 ## Repository Structure
@@ -199,7 +224,7 @@ flowchart LR
 - Unity Editor 6000.3.7f1
 - Node.js 18+
 - MongoDB instance
-- Groq API key
+- Azure OpenAI resource access
 
 ### 1) Open the Unity Project
 1. Clone this repository.
@@ -220,22 +245,21 @@ Backend default runs on port 8080 unless PORT is configured.
 Create a .env file inside Backend with:
 
 ~~~env
-GROQ_API_KEY=your_key
-GROQ_MODEL=llama-3.3-70b-versatile
-MONGODB_URI=your_mongodb_uri
+MONGODB_URL=your_mongodb_connection_string
 MONGODB_DB_NAME=your_database_name
 MONGODB_COLLECTION_USERS=users
-MONGODB_COLLECTION_FEEDBACK_LOGS=feedbackLogs
-PORT=8080
-~~~
-
-Optional values used by seed/vector workflow:
-
-~~~env
 MONGODB_COLLECTION_VECTORS=vectors
 MONGODB_VECTOR_INDEX=vector_index
+
+AZURE_OPENAI_API_KEY=your_azure_openai_api_key
+AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
+AZURE_OPENAI_API_VERSION=2024-02-15-preview
+AZURE_OPENAI_DEPLOYMENT=your_deployment_name
+
 HUGGINGFACEHUB_API_TOKEN=your_hf_token
 HUGGINGFACE_EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2
+
+PORT=8080
 ~~~
 
 ---
